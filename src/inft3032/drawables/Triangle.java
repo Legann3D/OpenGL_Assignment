@@ -19,7 +19,6 @@ public class Triangle extends Shape {
 	Vertex v2;
 	Vertex v3;
 
-
 	/**
 	 * Constructs a new Triangle object using the vertices specified.
 	 * 
@@ -39,7 +38,6 @@ public class Triangle extends Shape {
 	 * OpenGL initialisation for the Triangle.
 	 */
 	public void init(GL3 gl) {
-		 
 	}
 	
 
@@ -47,7 +45,6 @@ public class Triangle extends Shape {
 	 * Renders the triangle to the current GL context.
 	 */
 	public void draw(GL3 gl) {
-        	
 	}
 
 }
