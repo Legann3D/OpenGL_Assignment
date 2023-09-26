@@ -36,11 +36,13 @@ public class AssignGLListener implements GLEventListener {
 		GL3 gl = drawable.getGL().getGL3();
 		
 		// Sets the clear colour to black
-		gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		
+		gl.glClearColor(0, 0, 0, 0);
+		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+		gl.glEnable(GL.GL_DEPTH_TEST);
+		gl.glDepthFunc(GL.GL_LESS);
 		// Enables back-face culling
 		gl.glEnable(GL.GL_CULL_FACE);
-		gl.glCullFace(GL.GL_BACK);
+
 		
 		
 		for (Shape s : scene.shapes) {
