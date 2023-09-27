@@ -18,6 +18,8 @@ public class Triangle extends Shape {
 	Vertex v1;
 	Vertex v2;
 	Vertex v3;
+	int vao;
+	int vbo;
 
 	/**
 	 * Constructs a new Triangle object using the vertices specified.
@@ -38,6 +40,28 @@ public class Triangle extends Shape {
 	 * OpenGL initialisation for the Triangle.
 	 */
 	public void init(GL3 gl) {
+		
+		float[] vertices = new float[] {
+			    v1.pos.getX(), v1.pos.getY(), v1.pos.getZ(),
+			    v2.pos.getX(), v2.pos.getY(), v2.pos.getZ(),
+			    v3.pos.getX(), v3.pos.getY(), v3.pos.getZ()
+			};
+		
+		int[] temp = new int[] {1};
+		
+		gl.glGenVertexArrays(1, IntBuffer.wrap(temp));
+		vao = temp[0];
+					
+		gl.glGenBuffers(1, IntBuffer.wrap(temp));
+		vbo = temp[0];
+		
+		gl.glBindVertexArray(vao);		
+		gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vbo);	
+		
+		gl.glBufferData(GL.GL_ARRAY_BUFFER, vertices.length * 4, FloatBuffer.wrap(vertices), GL.GL_STATIC_DRAW);
+		
+		gl.glVertexAttribPointer(0, 3, GL.GL_FLOAT, false, 3*4, 0);		
+		gl.glEnableVertexAttribArray(0);
 	}
 	
 
@@ -45,6 +69,8 @@ public class Triangle extends Shape {
 	 * Renders the triangle to the current GL context.
 	 */
 	public void draw(GL3 gl) {
+    	gl.glBindVertexArray(vao);
+        gl.glDrawArrays(GL.GL_TRIANGLES, 0, 3);
 	}
 
 }
