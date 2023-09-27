@@ -57,15 +57,18 @@ public class AssignGLListener implements GLEventListener {
 		if (!shadersLoaded) {
 			// Try to load the shaders from the scene file only if they haven't been loaded yet
 			try {
-				BufferedReader reader = new BufferedReader(new FileReader("scenes/SimpleTriangle.scene"));
+				//BufferedReader reader = new BufferedReader(new FileReader("scenes/SimpleTriangle.scene"));
+				BufferedReader reader = new BufferedReader(new FileReader("scenes/ColouredTriangle.scene"));
 				String vertShaderPath = null;
 				String fragShaderPath = null;
 
 				String line;
 				while ((line = reader.readLine()) != null) {
-					if (line.trim().startsWith("\"shaders/SimpleShader.vert\"")) {
+					//if (line.trim().startsWith("\"shaders/SimpleShader.vert\"")) {
+					if (line.trim().startsWith("\"shaders/VertexColour.vert\"")) {
 						vertShaderPath = line.trim().substring(1, line.trim().length() - 1); // Remove double quotes
-					} else if (line.trim().startsWith("\"shaders/SimpleShader.frag\"")) {
+					//} else if (line.trim().startsWith("\"shaders/SimpleShader.frag\"")) {
+					} else if (line.trim().startsWith("\"shaders/VertexColour.frag\"")) {
 						fragShaderPath = line.trim().substring(1, line.trim().length() - 1); // Remove double quotes
 					}
 				}

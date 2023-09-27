@@ -42,9 +42,9 @@ public class Triangle extends Shape {
 	public void init(GL3 gl) {
 		
 		float[] vertices = new float[] {
-			    v1.pos.getX(), v1.pos.getY(), v1.pos.getZ(),
-			    v2.pos.getX(), v2.pos.getY(), v2.pos.getZ(),
-			    v3.pos.getX(), v3.pos.getY(), v3.pos.getZ()
+			    v1.pos.getX(), v1.pos.getY(), v1.pos.getZ(), v1.colour.getX(), v1.colour.getY(), v1.colour.getZ(),
+			    v2.pos.getX(), v2.pos.getY(), v2.pos.getZ(), v2.colour.getX(), v2.colour.getY(), v2.colour.getZ(),
+			    v3.pos.getX(), v3.pos.getY(), v3.pos.getZ(), v3.colour.getX(), v3.colour.getY(), v3.colour.getZ()
 			};
 		
 		int[] temp = new int[] {1};
@@ -60,8 +60,11 @@ public class Triangle extends Shape {
 		
 		gl.glBufferData(GL.GL_ARRAY_BUFFER, vertices.length * 4, FloatBuffer.wrap(vertices), GL.GL_STATIC_DRAW);
 		
-		gl.glVertexAttribPointer(0, 3, GL.GL_FLOAT, false, 3*4, 0);		
+		gl.glVertexAttribPointer(0, 3, GL.GL_FLOAT, false, 6*4, 0);	
+		gl.glVertexAttribPointer(1, 3, GL.GL_FLOAT, false, 6*4, 3*4);	
 		gl.glEnableVertexAttribArray(0);
+		gl.glEnableVertexAttribArray(1);
+		
 	}
 	
 
@@ -71,6 +74,7 @@ public class Triangle extends Shape {
 	public void draw(GL3 gl) {
     	gl.glBindVertexArray(vao);
         gl.glDrawArrays(GL.GL_TRIANGLES, 0, 3);
+        
 	}
 
 }
