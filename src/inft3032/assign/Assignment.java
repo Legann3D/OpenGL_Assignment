@@ -6,6 +6,7 @@
 
 package inft3032.assign;
 
+import inft3032.scene.Camera;
 import inft3032.scene.Scene;
 
 import java.awt.event.WindowAdapter;
@@ -18,7 +19,7 @@ import javax.media.opengl.awt.GLCanvas;
 public class Assignment {
 	
 	public static void main(String[] args) {
-
+		
 		String sceneFile = null;
 		int width = 500;
 		int height = 500;
