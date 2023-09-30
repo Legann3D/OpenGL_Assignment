@@ -73,7 +73,7 @@ public class Triangle extends Shape {
 	 */
 	public void draw(GL3 gl) {
     	gl.glBindVertexArray(vao);
-        gl.glDrawArrays(GL.GL_TRIANGLES, 0, 3);
+        gl.glDrawArrays(GL.GL_TRIANGLE_STRIP, 0, 3);
         
 	}
 
