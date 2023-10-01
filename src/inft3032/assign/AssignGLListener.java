@@ -66,7 +66,6 @@ public class AssignGLListener implements GLEventListener {
 	
 		Matrix4 viewMatrix = MatrixFactory.lookAt(scene.camera.getPosition(), scene.camera.getDirection(), scene.camera.getUp());
 		Matrix4 projectionMatrix = MatrixFactory.perspective(scene.camera.getHeightAngle(), scene.camera.getAspectRatio(), 0.1f, 10.0f);
-		Matrix4 transformMatrix = Matrix4.Matrix4();
 		
 		
 		if (!shadersLoaded) {
@@ -86,6 +85,10 @@ public class AssignGLListener implements GLEventListener {
 				 * Step 4 code
 				 */
 				//BufferedReader reader = new BufferedReader(new FileReader("scenes/PerspectiveTest.scene"));
+				
+				/*
+				 * Step 5 code
+				 */
 				BufferedReader reader = new BufferedReader(new FileReader("scenes/SimpleBox.scene"));
 				
 				String vertShaderPath = null;
@@ -104,7 +107,7 @@ public class AssignGLListener implements GLEventListener {
 					//if (line.trim().startsWith("\"shaders/VertexColour.vert\"")) {
 					
 					/*
-					 * Step 4 code
+					 * Step 4&5 code
 					 */
 					if (line.trim().startsWith("\"shaders/Transform.vert\"")) {
 						vertShaderPath = line.trim().substring(1, line.trim().length() - 1);
@@ -119,7 +122,7 @@ public class AssignGLListener implements GLEventListener {
 					//} else if (line.trim().startsWith("\"shaders/VertexColour.frag\"")) {
 						
 					/*
-					 * Step 4 code
+					 * Step 4&5 code
 					 */
 					} else if (line.trim().startsWith("\"shaders/VertexColour.frag\"")) {
 						
@@ -158,7 +161,6 @@ public class AssignGLListener implements GLEventListener {
 	public void display(GLAutoDrawable drawable) {
 		GL3 gl = drawable.getGL().getGL3();		
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-		shader.setUniform("transformMatrix", transformMatrix, gl);
 	    for (Shape s : scene.shapes) {	
 	        s.draw(gl);   
 	    }
