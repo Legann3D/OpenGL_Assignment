@@ -1,10 +1,13 @@
 #version 330
 
-// Input the texture coordinates, name must match
-in vec4 vertColour;
+in vec4 fragColour;  
+in vec4 transformedPosition;
+in vec3 fragNormal;
 
-out vec4 fragColour;
+out vec4 finalColor;
 
 void main() {
-    fragColour = vertColour;
+    
+    vec3 encodedNormal = (fragNormal + 1.0) * 0.5; 
+    finalColor = vec4(fragColour.rgb * encodedNormal, fragColour.a);
 }

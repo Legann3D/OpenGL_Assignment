@@ -55,38 +55,74 @@ public class AssignGLListener implements GLEventListener {
 		// Enables back-face culling
 		gl.glEnable(GL.GL_CULL_FACE);	
 		
-		Camera camera = new Camera();
-		// Calculate the view center position based on camera position and direction
-		Vector3 viewCenter = new Vector3(
-		        camera.getPosition().getX() + camera.getDirection().getX(),
-		        camera.getPosition().getY() + camera.getDirection().getY(),
-		        camera.getPosition().getZ() + camera.getDirection().getZ()
-		    );
-
+		/*
+		 * Camera camera = new Camera(); // Calculate the view center position based on
+		 * camera position and direction Vector3 viewCenter = new Vector3(
+		 * camera.getPosition().getX() + camera.getDirection().getX(),
+		 * camera.getPosition().getY() + camera.getDirection().getY(),
+		 * camera.getPosition().getZ() + camera.getDirection().getZ() );
+		 */
 		// Get projection and view matrices
-		Matrix4 viewMatrix = MatrixFactory.lookAt(camera.getPosition(), viewCenter, camera.getUp());
-		Matrix4 projectionMatrix = MatrixFactory.perspective(camera.getHeightAngle(), camera.getAspectRatio(), 0.1f, 100.0f);
+	
+		Matrix4 viewMatrix = MatrixFactory.lookAt(scene.camera.getPosition(), scene.camera.getDirection(), scene.camera.getUp());
+		Matrix4 projectionMatrix = MatrixFactory.perspective(scene.camera.getHeightAngle(), scene.camera.getAspectRatio(), 0.1f, 10.0f);
 		
 		
 		
 		if (!shadersLoaded) {
 			// Try to load the shaders from the scene file only if they haven't been loaded yet
 			try {
+				/*
+				 * Step 2 code
+				 */
 				//BufferedReader reader = new BufferedReader(new FileReader("scenes/SimpleTriangle.scene"));
+				
+				/*
+				 * Step 3 code
+				 */
 				//BufferedReader reader = new BufferedReader(new FileReader("scenes/ColouredTriangle.scene"));
-				BufferedReader reader = new BufferedReader(new FileReader("scenes/PerspectiveTest.scene"));
+				
+				/*
+				 * Step 4 code
+				 */
+				//BufferedReader reader = new BufferedReader(new FileReader("scenes/PerspectiveTest.scene"));
+				BufferedReader reader = new BufferedReader(new FileReader("scenes/SimpleBox.scene"));
+				
 				String vertShaderPath = null;
 				String fragShaderPath = null;
 
 				String line;
 				while ((line = reader.readLine()) != null) {
+					/*
+					 * Step 2 code
+					 */
 					//if (line.trim().startsWith("\"shaders/SimpleShader.vert\"")) {
+					
+					/*
+					 * Step 3 code
+					 */
 					//if (line.trim().startsWith("\"shaders/VertexColour.vert\"")) {
+					
+					/*
+					 * Step 4 code
+					 */
 					if (line.trim().startsWith("\"shaders/Transform.vert\"")) {
 						vertShaderPath = line.trim().substring(1, line.trim().length() - 1);
+					/*
+					 * Step 2 code
+					 */
 					//} else if (line.trim().startsWith("\"shaders/SimpleShader.frag\"")) {
+						
+					/*
+					 * Step 3 code
+					 */	
 					//} else if (line.trim().startsWith("\"shaders/VertexColour.frag\"")) {
+						
+					/*
+					 * Step 4 code
+					 */
 					} else if (line.trim().startsWith("\"shaders/VertexColour.frag\"")) {
+						
 						fragShaderPath = line.trim().substring(1, line.trim().length() - 1);
 					}
 				}
@@ -97,17 +133,19 @@ public class AssignGLListener implements GLEventListener {
 					// Construct and compile the shader using the paths obtained from the scene file
 					shader = new Shader(new File(vertShaderPath), new File(fragShaderPath));
 					
+
 					// Enable the shader for rendering
 					shader.compile(gl);
 					shader.enable(gl);
 					
 					shader.setUniform("projection", projectionMatrix, gl);
 					shader.setUniform("view", viewMatrix, gl);
+					shader.setUniform("model", new Matrix4(), gl);
 
 
 					shadersLoaded = true; // Set the flag to indicate that shaders have been loaded
 				} else {
-					System.out.println("Shader file paths not found in SimpleTriangle.scene");
+					System.out.println("Shader file paths not found in  the scene file");
 				}
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
@@ -137,7 +175,7 @@ public class AssignGLListener implements GLEventListener {
 		width = drawable.getWidth();
 		height = drawable.getHeight();
 		float aspectRatio = (float) width / height;
-		Matrix4 newProjectionMatrix = MatrixFactory.perspective(scene.camera.getHeightAngle(), aspectRatio, 0.1f, 100.0f);
+		Matrix4 newProjectionMatrix = MatrixFactory.perspective(scene.camera.getHeightAngle(), aspectRatio, 0.1f, 10.0f);
 		shader.enable(gl);
 		shader.setUniform("projection", newProjectionMatrix, gl);
 
